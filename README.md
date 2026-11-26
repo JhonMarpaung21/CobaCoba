@@ -91,5 +91,6 @@ Sesi dan catatan pendaftaran memakai `sessionStorage`, yang bertahan saat halama
 | Alur utama · Chromium | Lulus untuk akses tamu, pencarian, filter dan reset, detail, akun dan pemulihan demo, validasi form, kirim ulang, bukti, riwayat, dan pembaruan |
 | Layout · Chromium | 8 rute lulus pada 320, 375, 767, 768, 1023, 1024, dan 1440 px. Navigasi berpindah pada breakpoint 768 px dan halaman yang diperiksa bebas overflow horizontal. |
 | Aksesibilitas · Chromium | Navigasi keyboard dan fokus panel diuji. Pemindaian axe-core WCAG A/AA pada 6 rute tidak melaporkan pelanggaran. |
+| Ekspor GitHub Pages · Chromium | Alur utama lulus di bawah `/CobaCoba/`. Delapan rute diperiksa pada lebar 375, 768, dan 1440 px. |
 
-Pratinjau terkelola gagal membuka relay. Uji browser dilakukan terhadap build produksi secara lokal. Firefox gagal menyiapkan profil uji dan WebKit memerlukan pustaka sistem tambahan, sehingga hasil browser di atas mencakup Chromium.
+Firefox gagal menyiapkan profil uji dan WebKit memerlukan pustaka sistem tambahan, sehingga hasil browser di atas mencakup Chromium.
