@@ -24,13 +24,13 @@ Jalankan `npm run start` setelah build selesai untuk membuka versi produksi seca
 
 ## GitHub Pages
 
-Demo menggunakan GitHub Pages dengan sumber root branch `main`. Hasil ekspor statis disimpan di root repositori agar GitHub Pages dapat menyajikan halaman dan aset Next.js secara langsung. [Buka demo SportID](https://jhonmarpaung21.github.io/CobaCoba/)
+Demo menggunakan GitHub Pages dengan sumber root branch `gh-pages`. Branch `main` berisi kode sumber. [Buka demo SportID](https://jhonmarpaung21.github.io/CobaCoba/)
 
 ```sh
 SPORTID_PAGES_BASE_PATH=/CobaCoba npm run build
 ```
 
-Perintah ini menghasilkan build statis di `out/`. Saat memperbarui demo, sertakan hasil ekspor terbaru beserta `.nojekyll` dalam perubahan branch `main`.
+Perintah ini menghasilkan build statis di `out/`. Saat memperbarui demo, terbitkan isi `out/` beserta `.nojekyll` ke root branch `gh-pages`.
 
 ## Struktur kode
 
