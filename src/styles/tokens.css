@@ -1,0 +1,27 @@
+:root {
+  --sportid-color-surface: #ffffff;
+  --sportid-color-ink: #173b73;
+  --sportid-color-accent: #ff851b;
+  --sportid-color-border: #c7cfd9;
+  --sportid-color-muted: #626d7b;
+  --sportid-color-image-placeholder: #e5e5e5;
+  --sportid-color-image-placeholder-icon: #808080;
+  --sportid-color-disabled: #eff2f5;
+  --color-text: #172b37;
+  --color-surface-subtle: #f5f7fa;
+  --color-accent-hover: #ff9c45;
+  --sportid-spacing-xs: 4px;
+  --sportid-spacing-sm: 8px;
+  --sportid-spacing-md: 12px;
+  --sportid-spacing-lg: 16px;
+  --sportid-spacing-xl: 24px;
+  --sportid-spacing-2xl: 32px;
+  --sportid-spacing-3xl: 48px;
+  --sportid-radius-control: 8px;
+  --sportid-radius-card: 12px;
+  --sportid-radius-pill: 999px;
+  --container-width: 76rem;
+  --container-gutter: var(--sportid-spacing-xl);
+  --mobile-nav-height: calc(68px + env(safe-area-inset-bottom, 0px));
+  --control-height: 48px;
+}
