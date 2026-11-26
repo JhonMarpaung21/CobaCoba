@@ -6,6 +6,7 @@ import { RegistrationAccess } from "@/components/forms/registration-access";
 import { RegistrationPicker } from "@/components/forms/registration-picker";
 import { getEvent } from "@/data/events";
 import { formatDemoSubmissionTime, useDemoRegistrations } from "@/lib/demo-registrations";
+import { registrationReceiptHref } from "@/lib/registration-receipt";
 
 function HistoryContent({ email }: { email: string }) {
   const registrations = useDemoRegistrations(email);
@@ -31,7 +32,7 @@ function HistoryContent({ email }: { email: string }) {
                 </div>
                 <p className="registration-id">{registration.id}</p>
                 <p className="muted">Dikirim {formatDemoSubmissionTime(registration.submittedAt)}</p>
-                <Link className="text-link" href={`/pendaftaran/${registration.id}/bukti`}>
+                <Link className="text-link" href={registrationReceiptHref(registration.id)}>
                   Buka Bukti Pendaftaran
                 </Link>
                 <p className="notice">

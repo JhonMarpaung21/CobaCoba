@@ -12,7 +12,7 @@ const destinations = [
 ];
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   const standalone = pathname === "/" || pathname === "/masuk" ||
     pathname === "/daftar-akun" || pathname === "/lupa-kata-sandi";
   const inRegistrationForm = pathname.endsWith("/daftar") || pathname.endsWith("/bukti");

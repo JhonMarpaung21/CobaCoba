@@ -3,9 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { RegistrationForm } from "@/components/forms/registration-form";
-import { getEvent } from "@/data/events";
+import { events, getEvent } from "@/data/events";
 
 export const metadata: Metadata = { title: "Formulir Pendaftaran" };
+
+export function generateStaticParams() {
+  return events.map(({ slug }) => ({ slug }));
+}
 
 export default async function RegistrationFormPage({
   params,

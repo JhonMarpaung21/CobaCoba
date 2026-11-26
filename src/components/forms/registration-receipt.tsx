@@ -1,24 +1,28 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { CircleCheck } from "lucide-react";
 import { RegistrationAccess } from "@/components/forms/registration-access";
 import { getEvent } from "@/data/events";
 import { formatDemoSubmissionTime, useDemoRegistrations } from "@/lib/demo-registrations";
+import { getRegistrationReceiptId, registrationReceiptHref } from "@/lib/registration-receipt";
+
+function ReceiptUnavailable() {
+  return (
+    <div className="panel empty-state stack">
+      <h2>Bukti pendaftaran belum tersedia</h2>
+      <p>Buka Pendaftaran Saya untuk melihat bukti yang tersedia di sesi demo ini.</p>
+      <Link className="text-link" href="/pendaftaran">Lihat Pendaftaran Saya</Link>
+    </div>
+  );
+}
 
 function ReceiptContent({ id, email }: { id: string; email: string }) {
   const registrations = useDemoRegistrations(email);
   const registration = registrations.find((item) => item.id === id);
 
-  if (!registration) {
-    return (
-      <div className="panel empty-state stack">
-        <h2>Bukti pendaftaran belum tersedia</h2>
-        <p>Buka Pendaftaran Saya untuk melihat bukti yang tersedia di sesi demo ini.</p>
-        <Link className="text-link" href="/pendaftaran">Lihat Pendaftaran Saya</Link>
-      </div>
-    );
-  }
+  if (!registration) return <ReceiptUnavailable />;
 
   const event = getEvent(registration.eventSlug);
 
@@ -69,10 +73,12 @@ function ReceiptContent({ id, email }: { id: string; email: string }) {
   );
 }
 
-export function RegistrationReceipt({ id }: { id: string }) {
+export function RegistrationReceipt() {
+  const id = getRegistrationReceiptId(useSearchParams());
+
   return (
-    <RegistrationAccess next={`/pendaftaran/${id}/bukti`}>
-      {(session) => <ReceiptContent id={id} email={session.email} />}
+    <RegistrationAccess next={id ? registrationReceiptHref(id) : "/pendaftaran"}>
+      {(session) => id ? <ReceiptContent id={id} email={session.email} /> : <ReceiptUnavailable />}
     </RegistrationAccess>
   );
 }

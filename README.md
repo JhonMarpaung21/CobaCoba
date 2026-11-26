@@ -22,6 +22,16 @@ npm run start
 
 Jalankan `npm run start` setelah build selesai untuk membuka versi produksi secara lokal. Proyek demo berjalan tanpa variabel lingkungan.
 
+## GitHub Pages
+
+Demo menggunakan GitHub Pages dengan sumber root branch `main`. Hasil ekspor statis disimpan di root repositori agar GitHub Pages dapat menyajikan halaman dan aset Next.js secara langsung. [Buka demo SportID](https://jhonmarpaung21.github.io/CobaCoba/)
+
+```sh
+SPORTID_PAGES_BASE_PATH=/CobaCoba npm run build
+```
+
+Perintah ini menghasilkan build statis di `out/`. Saat memperbarui demo, sertakan hasil ekspor terbaru beserta `.nojekyll` dalam perubahan branch `main`.
+
 ## Struktur kode
 
 | Direktori | Isi |
@@ -54,7 +64,7 @@ Proyek memakai Next.js, React, TypeScript, Tailwind CSS, dan Lucide React. Prins
 | SCR-10, SCR-10-E | `/pendaftaran` dengan riwayat pengiriman atau keadaan kosong |
 | SCR-11 | Panel Pilih Event di `/pendaftaran` untuk mencari event yang membuka pendaftaran |
 | SCR-12, SCR-12-E, SCR-12-F | `/event/[slug]/daftar` dengan form, validasi, dan pemulihan dari kegagalan pengiriman |
-| SCR-13 | `/pendaftaran/[id]/bukti` untuk melihat pengiriman demo dari sesi yang sama |
+| SCR-13 | `/pendaftaran/bukti?id=…` untuk melihat pengiriman demo dari sesi yang sama |
 
 Empat tujuan utama adalah Beranda, Cari Event, Pembaruan, dan Pendaftaran. Dalam viewport di bawah 768 px, tab utama berada di bawah dan panel filter serta pemilih event dibuka dari bawah. Mulai 768 px, navigasi berpindah ke header dan grid hasil memakai dua kolom. Mulai 1024 px, grid hasil memakai tiga kolom dan CTA detail event memakai kolom pendamping.
 

@@ -6,6 +6,7 @@ import { type FormEvent, useRef, useState } from "react";
 import { RegistrationAccess } from "@/components/forms/registration-access";
 import { formatEventDate, formatEventFee } from "@/data/events";
 import { createDemoRegistration } from "@/lib/demo-registrations";
+import { registrationReceiptHref } from "@/lib/registration-receipt";
 import type { DemoSession } from "@/lib/demo-session";
 import { isValidEmail } from "@/lib/validation";
 import type { SportEvent } from "@/types/sport";
@@ -97,7 +98,7 @@ function RegistrationFields({
         phone,
         category,
       });
-      nextHref = `/pendaftaran/${registration.id}/bukti`;
+      nextHref = registrationReceiptHref(registration.id);
     } catch {
       submitting.current = false;
       setSubmitError(true);

@@ -1,15 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 import { getEvent } from "@/data/events";
 import { setDemoSession } from "@/lib/demo-session";
+import { getRegistrationReceiptId, registrationReceiptPath } from "@/lib/registration-receipt";
 import { isValidEmail } from "@/lib/validation";
-
-export type AuthPageProps = {
-  searchParams: Promise<{ next?: string | string[] }>;
-};
 
 type AuthMode = "login" | "register" | "recovery";
 type FieldName = "name" | "email" | "password";
@@ -41,8 +38,8 @@ const appPaths = new Set([
   "/pendaftaran",
 ]);
 
-function getSafeNext(value: string | string[] | undefined) {
-  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
+function getSafeNext(value: string | undefined) {
+  if (!value?.startsWith("/") || value.startsWith("//")) {
     return undefined;
   }
 
@@ -55,11 +52,12 @@ function getSafeNext(value: string | string[] | undefined) {
   }
   if (url.origin !== origin) return undefined;
 
-  const isEventPath = /^\/event\/[a-z0-9-]+(?:\/daftar)?$/.test(url.pathname);
-  const isReceiptPath = /^\/pendaftaran\/SID-\d+-[A-F0-9]+\/bukti$/.test(url.pathname);
-  if (!appPaths.has(url.pathname) && !isEventPath && !isReceiptPath) return undefined;
+  const pathname = url.pathname.replace(/\/$/, "");
+  const isEventPath = /^\/event\/[a-z0-9-]+(?:\/daftar)?$/.test(pathname);
+  const isReceiptPath = pathname === registrationReceiptPath && getRegistrationReceiptId(url.searchParams);
+  if (!appPaths.has(pathname) && !isEventPath && !isReceiptPath) return undefined;
 
-  return url.pathname + url.search + url.hash;
+  return pathname + url.search + url.hash;
 }
 
 function withNext(path: string, next: string | undefined) {
@@ -161,12 +159,13 @@ function RecoveryFeedback({ next }: { next?: string }) {
   );
 }
 
-export function AuthForm({ mode, nextPath }: { mode: AuthMode; nextPath?: string | string[] }) {
+function AuthFormContent({ mode }: { mode: AuthMode }) {
   const router = useRouter();
+  const requestedPaths = useSearchParams().getAll("next");
   const [pending, startTransition] = useTransition();
   const [errors, setErrors] = useState<FieldErrors>({});
   const [requestedRecovery, setRequestedRecovery] = useState(false);
-  const next = getSafeNext(nextPath);
+  const next = getSafeNext(requestedPaths.length === 1 ? requestedPaths[0] : undefined);
   const eventSlug = next?.match(/^\/event\/([a-z0-9-]+)\/daftar(?:[?#]|$)/)?.[1];
   const event = eventSlug ? getEvent(eventSlug) : undefined;
   const page = content[mode];
@@ -201,62 +200,75 @@ export function AuthForm({ mode, nextPath }: { mode: AuthMode; nextPath?: string
     startTransition(() => router.replace(next ?? "/beranda"));
   }
 
+  if (requestedRecovery) return <RecoveryFeedback next={next} />;
+
+  return (
+    <section className="panel stack" aria-labelledby="auth-title">
+      <header>
+        <h1 id="auth-title">{page.title}</h1>
+        <p>{page.intro}</p>
+      </header>
+      {mode === "login" && event && (
+        <p className="notice">Masuk untuk melanjutkan pendaftaran {event.title}. Pilihan event tetap tersimpan.</p>
+      )}
+      <form className="stack" noValidate onSubmit={handleSubmit}>
+        {mode === "register" && (
+          <AuthField name="name" label="Nama lengkap" type="text" autoComplete="name" error={errors.name} />
+        )}
+        <AuthField name="email" label="Email" type="email" autoComplete="email" error={errors.email} />
+        {mode !== "recovery" && (
+          <AuthField
+            name="password"
+            label="Kata sandi"
+            type="password"
+            autoComplete={mode === "register" ? "new-password" : "current-password"}
+            minLength={mode === "register" ? 8 : undefined}
+            hint={mode === "register" ? "Gunakan minimal 8 karakter." : undefined}
+            error={errors.password}
+          />
+        )}
+        {mode === "login" && (
+          <Link className="text-link" href={withNext("/lupa-kata-sandi", next)}>Lupa kata sandi?</Link>
+        )}
+        <p className="muted">Mode demo. Gunakan data contoh.</p>
+        <button className="button button--primary" disabled={pending} type="submit">
+          {pending ? "Memproses…" : page.action}
+        </button>
+      </form>
+      {mode === "login" && (
+        <>
+          <Link className="button button--secondary" href={withNext("/daftar-akun", next)}>Daftar Akun</Link>
+          <Link className="text-link" href="/beranda">Lanjut sebagai Tamu</Link>
+          <div>
+            <p>Bantuan akun atau kendala teknis?</p>
+            <button className="text-link" disabled type="button">Hubungi Tim SportID</button>
+            <p className="muted">Kontak belum tersedia dalam mode demo.</p>
+          </div>
+        </>
+      )}
+      {mode === "register" && (
+        <p>Sudah punya akun? <Link className="text-link" href={withNext("/masuk", next)}>Masuk</Link></p>
+      )}
+      {mode === "recovery" && (
+        <Link className="text-link" href={withNext("/masuk", next)}>Kembali ke Masuk</Link>
+      )}
+    </section>
+  );
+}
+
+export function AuthForm({ mode }: { mode: AuthMode }) {
+  const fallback = (
+    <section className="panel stack" aria-labelledby="auth-title">
+      <h1 id="auth-title">{content[mode].title}</h1>
+      <p className="muted" role="status">Menyiapkan formulir…</p>
+    </section>
+  );
+
   return (
     <main className="container auth-layout" id="main-content">
-      {requestedRecovery ? (
-        <RecoveryFeedback next={next} />
-      ) : (
-        <section className="panel stack" aria-labelledby="auth-title">
-          <header>
-            <h1 id="auth-title">{page.title}</h1>
-            <p>{page.intro}</p>
-          </header>
-          {mode === "login" && event && (
-            <p className="notice">Masuk untuk melanjutkan pendaftaran {event.title}. Pilihan event tetap tersimpan.</p>
-          )}
-          <form className="stack" noValidate onSubmit={handleSubmit}>
-            {mode === "register" && (
-              <AuthField name="name" label="Nama lengkap" type="text" autoComplete="name" error={errors.name} />
-            )}
-            <AuthField name="email" label="Email" type="email" autoComplete="email" error={errors.email} />
-            {mode !== "recovery" && (
-              <AuthField
-                name="password"
-                label="Kata sandi"
-                type="password"
-                autoComplete={mode === "register" ? "new-password" : "current-password"}
-                minLength={mode === "register" ? 8 : undefined}
-                hint={mode === "register" ? "Gunakan minimal 8 karakter." : undefined}
-                error={errors.password}
-              />
-            )}
-            {mode === "login" && (
-              <Link className="text-link" href={withNext("/lupa-kata-sandi", next)}>Lupa kata sandi?</Link>
-            )}
-            <p className="muted">Mode demo. Gunakan data contoh.</p>
-            <button className="button button--primary" disabled={pending} type="submit">
-              {pending ? "Memproses…" : page.action}
-            </button>
-          </form>
-          {mode === "login" && (
-            <>
-              <Link className="button button--secondary" href={withNext("/daftar-akun", next)}>Daftar Akun</Link>
-              <Link className="text-link" href="/beranda">Lanjut sebagai Tamu</Link>
-              <div>
-                <p>Bantuan akun atau kendala teknis?</p>
-                <button className="text-link" disabled type="button">Hubungi Tim SportID</button>
-                <p className="muted">Kontak belum tersedia dalam mode demo.</p>
-              </div>
-            </>
-          )}
-          {mode === "register" && (
-            <p>Sudah punya akun? <Link className="text-link" href={withNext("/masuk", next)}>Masuk</Link></p>
-          )}
-          {mode === "recovery" && (
-            <Link className="text-link" href={withNext("/masuk", next)}>Kembali ke Masuk</Link>
-          )}
-        </section>
-      )}
+      <Suspense fallback={fallback}>
+        <AuthFormContent mode={mode} />
+      </Suspense>
     </main>
   );
 }

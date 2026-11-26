@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
@@ -5,13 +6,7 @@ import { RegistrationReceipt } from "@/components/forms/registration-receipt";
 
 export const metadata: Metadata = { title: "Bukti Pendaftaran" };
 
-export default async function RegistrationReceiptPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-
+export default function RegistrationReceiptPage() {
   return (
     <main className="container page-shell stack" id="main-content">
       <div className="page-heading">
@@ -20,7 +15,9 @@ export default async function RegistrationReceiptPage({
         </Link>
         <h1>Bukti Pendaftaran</h1>
       </div>
-      <RegistrationReceipt id={id} />
+      <Suspense fallback={<p className="notice" role="status">Memuat bukti pendaftaran…</p>}>
+        <RegistrationReceipt />
+      </Suspense>
     </main>
   );
 }
