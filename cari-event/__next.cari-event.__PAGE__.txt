@@ -1,0 +1,30 @@
+1:"$Sreact.fragment"
+2:"/CobaCoba/_next/static/chunks/0_fh4kay9fgr8.js"
+3:I[87668,["$2"],"SiteHeader"]
+4:I[39756,["$2"],"default"]
+5:I[37457,["$2"],"default"]
+6:I[22016,["$2"],""]
+d:"$Sreact.suspense"
+e:"/CobaCoba/_next/static/chunks/2co8jh0747-3w.js"
+f:I[35421,["$2","$e"],"EventSearch"]
+10:I[97367,["$2"],"OutletBoundary"]
+13:"ViewportBoundary"
+14:I[97367,["$2"],"$13"]
+15:"MetadataBoundary"
+16:I[97367,["$2"],"$15"]
+:HL["/CobaCoba/_next/static/chunks/3q8rmg59gcusi.css","style"]
+8:X
+b:X
+b:C
+c:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","main",null,{"id":"main-content","className":"container page-shell","children":[["$","div",null,{"className":"page-heading","children":["$","h1",null,{"children":"Cari Event Olahraga"}]}],["$","$d",null,{"fallback":["$","p",null,{"role":"status","children":"Memuat daftar event…"}],"children":["$","$Lf",null,{"events":[{"slug":"medan-community-run","title":"Medan Community Run","sport":"Lari","category":"Lari 5K","city":"Medan","venue":"Taman Kota","date":"2026-11-22","fee":0,"distanceKm":5,"status":"open","organizer":"Komunitas Lari Medan","requirements":"Usia minimal 16 tahun. Peserta mengikuti rute 5K dan ketentuan kegiatan.","facilities":"Air minum dan nomor peserta tersedia.","schedule":[{"time":"05.30 WIB","label":"Berkumpul"},{"time":"05.45 WIB","label":"Pengarahan"},{"time":"06.00 WIB","label":"Mulai lari"}],"racePack":{"schedule":"21 November 2026, 10.00–17.00 WIB","venue":"Sekretariat komunitas, Medan","instructions":"Bawa identitas dan bukti pendaftaran.","note":"Pengambilan oleh perwakilan: belum dikonfirmasi. Hubungi penyelenggara sebelum membuat rencana."},"announcement":{"title":"Perubahan jam berkumpul","summary":"Jam berkumpul diperbarui menjadi 05.30 WIB.","body":"Berkumpul pukul 05.30 WIB, dari sebelumnya 05.45 WIB. Mulai lari tetap 06.00 WIB.","source":"pengumuman resmi komunitas","checkedAt":"2 November 2026, 09.00 WIB","postedAt":"2 November 2026"},"ticketCategories":["5K"]},{"slug":"medan-fun-cycling","title":"Medan Fun Cycling","sport":"Sepeda","category":"Sepeda santai","city":"Medan","venue":"Lapangan Merdeka","date":"2026-11-29","fee":50000,"status":"upcoming","organizer":"Komunitas Sepeda Medan","requirements":"Gunakan helm dan pastikan sepeda dalam kondisi layak.","facilities":"Air minum tersedia di titik berkumpul.","schedule":[],"ticketCategories":["Sepeda santai"]}]}]}]]}],[["$","script","script-0",{"src":"/CobaCoba/_next/static/chunks/2co8jh0747-3w.js","async":true}]],["$","$L10",null,{"children":["$","$d",null,{"name":"Next.MetadataOutlet","children":"$@11"}]}]]}],"p":"$@12","v":null,"s":"$8"}}]]
+9:[["children",{"s":"cari-event","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@a","v":"$b","s":"$8"},"c":"$Qc"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/CobaCoba/_next/static/chunks/3q8rmg59gcusi.css","precedence":"next"}],["$","script","script-0",{"src":"/CobaCoba/_next/static/chunks/0_fh4kay9fgr8.js","async":true}]],["$","html",null,{"lang":"id","children":["$","body",null,{"children":[["$","a",null,{"className":"skip-link","href":"#main-content","children":"Langsung ke konten"}],["$","$L3",null,{}],["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}],"notFound":[["$","main",null,{"id":"main-content","className":"container page-shell","children":["$","section",null,{"className":"panel empty-state stack","children":[["$","h1",null,{"children":"Halaman tidak ditemukan"}],["$","p",null,{"className":"muted","children":"Periksa alamat atau kembali ke Beranda SportID."}],["$","$L6",null,{"href":"/beranda","className":"button button--primary","children":"Ke Beranda"}]]}]}],[]]}]]}]}]]}],"p":"$@7","v":null,"s":"$8"},"c":"$Q9"},"h":{"r":["$","$1","h",{"children":[null,["$","$L14",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L16",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$d",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Cari Event Olahraga · SportID"}],["$","meta","1",{"name":"description","content":"Temukan event olahraga, baca informasi penyelenggaraan, dan kelola pendaftaran di SportID."}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@17","v":null,"s":"$8"}},"a":"$@18","u":"$@19","b":"Orn_pEKj9Qs3rQSDrymkk"}
+11:null
+8:300
+19:true
+8:C
+18:0
+a:"$undefined"
+7:"$undefined"
+17:"$undefined"
+12:"$undefined"
